@@ -95,7 +95,7 @@ const ReportsPage = ({ user }) => {
               className="h-24 flex flex-col items-center justify-center gap-2 bg-white text-gray-900 hover:bg-gray-50"
               data-testid="export-pdf-button"
             >
-              <FilePdf className="w-8 h-8 text-red-600" />
+              <File className="w-8 h-8 text-red-600" />
               <span className="font-semibold">Export to PDF</span>
             </Button>
           </div>
