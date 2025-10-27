@@ -94,8 +94,8 @@ const BudgetPage = ({ user }) => {
   return (
     <div className="space-y-6" data-testid="budget-page">
       <div>
-        <h1 className="text-4xl font-bold text-white" data-testid="budget-title">Budget</h1>
-        <p className="text-white/80">Set and track your monthly budget</p>
+        <h1 className="text-4xl font-bold text-white dark:text-gray-100" data-testid="budget-title">Budget</h1>
+        <p className="text-white/80 dark:text-gray-300">Set and track your monthly budget</p>
       </div>
 
       {/* Budget Form */}
@@ -111,7 +111,7 @@ const BudgetPage = ({ user }) => {
                 <select
                   id="month"
                   data-testid="budget-month-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.month}
                   onChange={(e) => setFormData({ ...formData, month: parseInt(e.target.value) })}
                 >
@@ -160,10 +160,10 @@ const BudgetPage = ({ user }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="glass border-0" data-testid="budget-limit-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Budget Limit</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Budget Limit</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold" data-testid="budget-limit-amount">
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100" data-testid="budget-limit-amount">
                 {user?.currency} {budgetLimit.toFixed(2)}
               </div>
             </CardContent>
@@ -171,10 +171,10 @@ const BudgetPage = ({ user }) => {
 
           <Card className="glass border-0" data-testid="spent-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Spent</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Spent</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-600" data-testid="spent-amount">
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400" data-testid="spent-amount">
                 {user?.currency} {monthlySpent.toFixed(2)}
               </div>
             </CardContent>
@@ -182,12 +182,12 @@ const BudgetPage = ({ user }) => {
 
           <Card className="glass border-0" data-testid="remaining-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Remaining</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Remaining</CardTitle>
             </CardHeader>
             <CardContent>
               <div
                 className={`text-2xl font-bold ${
-                  isOverBudget ? 'text-red-600' : 'text-green-600'
+                  isOverBudget ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'
                 }`}
                 data-testid="remaining-amount"
               >
@@ -207,8 +207,8 @@ const BudgetPage = ({ user }) => {
           <CardContent className="space-y-4">
             <div>
               <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-600">Spending</span>
-                <span className="text-sm font-medium" data-testid="progress-percentage">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Spending</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-100" data-testid="progress-percentage">
                   {percentage.toFixed(1)}%
                 </span>
               </div>
@@ -221,13 +221,13 @@ const BudgetPage = ({ user }) => {
 
             {isOverBudget && (
               <div
-                className="flex items-start gap-2 p-4 bg-red-50 border border-red-200 rounded-lg"
+                className="flex items-start gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
                 data-testid="over-budget-alert"
               >
-                <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-red-900">Budget Exceeded!</h4>
-                  <p className="text-sm text-red-700">
+                  <h4 className="font-semibold text-red-900 dark:text-red-300">Budget Exceeded!</h4>
+                  <p className="text-sm text-red-700 dark:text-red-300">
                     You've exceeded your budget by {user?.currency} {Math.abs(remaining).toFixed(2)}.
                     Consider reducing expenses or increasing your budget.
                   </p>
@@ -237,13 +237,13 @@ const BudgetPage = ({ user }) => {
 
             {!isOverBudget && percentage > 80 && (
               <div
-                className="flex items-start gap-2 p-4 bg-yellow-50 border border-yellow-200 rounded-lg"
+                className="flex items-start gap-2 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg"
                 data-testid="budget-warning"
               >
-                <TrendingUp className="w-5 h-5 text-yellow-600 mt-0.5" />
+                <TrendingUp className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-yellow-900">Almost There!</h4>
-                  <p className="text-sm text-yellow-700">
+                  <h4 className="font-semibold text-yellow-900 dark:text-yellow-300">Almost There!</h4>
+                  <p className="text-sm text-yellow-700 dark:text-yellow-300">
                     You've used {percentage.toFixed(1)}% of your budget. Be mindful of your spending.
                   </p>
                 </div>

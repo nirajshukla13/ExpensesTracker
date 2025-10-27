@@ -170,8 +170,8 @@ const ExpensesPage = ({ user }) => {
     <div className="space-y-6" data-testid="expenses-page">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white" data-testid="expenses-title">Expenses</h1>
-          <p className="text-white/80">Track and manage your expenses</p>
+          <h1 className="text-4xl font-bold text-white dark:text-gray-100" data-testid="expenses-title">Expenses</h1>
+          <p className="text-white/80 dark:text-gray-300">Track and manage your expenses</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
@@ -188,12 +188,12 @@ const ExpensesPage = ({ user }) => {
               <DialogTitle>{editingExpense ? 'Edit Expense' : 'Add New Expense'}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="category">Category</Label>
                 <select
                   id="category"
                   data-testid="expense-category-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   required
@@ -238,7 +238,7 @@ const ExpensesPage = ({ user }) => {
                 <select
                   id="payment_method"
                   data-testid="expense-payment-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.payment_method}
                   onChange={(e) => setFormData({ ...formData, payment_method: e.target.value })}
                   required
@@ -290,7 +290,7 @@ const ExpensesPage = ({ user }) => {
             <div>
               <Label>Category</Label>
               <select
-                className="w-full px-3 py-2 border rounded-md mt-1"
+                className="w-full px-3 py-2 border rounded-md mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                 value={filters.category}
                 onChange={(e) => setFilters({ ...filters, category: e.target.value })}
                 data-testid="filter-category-select"
@@ -306,7 +306,7 @@ const ExpensesPage = ({ user }) => {
             <div>
               <Label>Payment Method</Label>
               <select
-                className="w-full px-3 py-2 border rounded-md mt-1"
+                className="w-full px-3 py-2 border rounded-md mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                 value={filters.payment_method}
                 onChange={(e) => setFilters({ ...filters, payment_method: e.target.value })}
                 data-testid="filter-payment-select"
@@ -355,27 +355,27 @@ const ExpensesPage = ({ user }) => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
             </div>
           ) : filteredExpenses.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">No expenses found</p>
+            <p className="text-center text-gray-500 dark:text-gray-400 py-8">No expenses found</p>
           ) : (
             <div className="space-y-3">
               {filteredExpenses.map((expense) => (
                 <div
                   key={expense.id}
-                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-white/50 rounded-lg hover:bg-white/70 transition-colors"
+                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg hover:bg-white/70 dark:hover:bg-gray-700/70 transition-colors"
                   data-testid={`expense-item-${expense.id}`}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-lg">{expense.category}</span>
-                      <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                      <span className="font-semibold text-lg text-gray-900 dark:text-gray-100">{expense.category}</span>
+                      <span className="text-xs bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 px-2 py-1 rounded">
                         {expense.payment_method}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">{expense.date}</p>
-                    {expense.notes && <p className="text-sm text-gray-500 mt-1">{expense.notes}</p>}
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{expense.date}</p>
+                    {expense.notes && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{expense.notes}</p>}
                   </div>
                   <div className="flex items-center gap-4 mt-2 sm:mt-0">
-                    <span className="text-xl font-bold text-purple-600" data-testid={`expense-amount-${expense.id}`}>
+                    <span className="text-xl font-bold text-purple-600 dark:text-purple-400" data-testid={`expense-amount-${expense.id}`}>
                       {user?.currency} {expense.amount}
                     </span>
                     <div className="flex gap-2">

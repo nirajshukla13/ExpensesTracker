@@ -93,7 +93,7 @@ const CategoriesPage = () => {
     <div className="space-y-6" data-testid="categories-page">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white" data-testid="categories-title">Categories</h1>
+          <h1 className="text-4xl font-bold text-white dark:text-gray-100" data-testid="categories-title">Categories</h1>
           <p className="text-white/80">Manage your expense categories</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

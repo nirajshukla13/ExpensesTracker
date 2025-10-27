@@ -107,8 +107,8 @@ const RecurringPage = ({ user }) => {
     <div className="space-y-6" data-testid="recurring-page">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-white" data-testid="recurring-title">Recurring Expenses</h1>
-          <p className="text-white/80">Manage your recurring payments and subscriptions</p>
+          <h1 className="text-4xl font-bold text-white dark:text-gray-100" data-testid="recurring-title">Recurring Expenses</h1>
+          <p className="text-white/80 dark:text-gray-300">Manage your recurring payments and subscriptions</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -130,7 +130,7 @@ const RecurringPage = ({ user }) => {
                 <select
                   id="category"
                   data-testid="recurring-category-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   required
@@ -163,7 +163,7 @@ const RecurringPage = ({ user }) => {
                 <select
                   id="frequency"
                   data-testid="recurring-frequency-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.frequency}
                   onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
                   required
@@ -192,7 +192,7 @@ const RecurringPage = ({ user }) => {
                 <select
                   id="payment_method"
                   data-testid="recurring-payment-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.payment_method}
                   onChange={(e) => setFormData({ ...formData, payment_method: e.target.value })}
                   required
@@ -236,7 +236,7 @@ const RecurringPage = ({ user }) => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
             </div>
           ) : recurring.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">No recurring expenses found</p>
+            <p className="text-center text-gray-500 dark:text-gray-400 py-8">No recurring expenses found</p>
           ) : (
             <div className="space-y-3">
               {recurring.map((item) => (
@@ -257,9 +257,9 @@ const RecurringPage = ({ user }) => {
                     </div>
                     <div className="flex items-center gap-2 mt-1">
                       <Calendar className="w-4 h-4 text-gray-500" />
-                      <p className="text-sm text-gray-600">Next: {item.next_date}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">Next: {item.next_date}</p>
                     </div>
-                    {item.notes && <p className="text-sm text-gray-500 mt-1">{item.notes}</p>}
+                    {item.notes && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{item.notes}</p>}
                   </div>
                   <div className="flex items-center gap-4 mt-2 sm:mt-0">
                     <span className="text-xl font-bold text-purple-600" data-testid={`recurring-amount-${item.id}`}>
@@ -289,14 +289,14 @@ const RecurringPage = ({ user }) => {
             <CardTitle>Monthly Commitment</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-purple-600" data-testid="monthly-commitment">
+            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400" data-testid="monthly-commitment">
               {user?.currency}{' '}
               {recurring
                 .filter((item) => item.frequency === 'monthly')
                 .reduce((sum, item) => sum + item.amount, 0)
                 .toFixed(2)}
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
               Total monthly recurring expenses
             </p>
           </CardContent>

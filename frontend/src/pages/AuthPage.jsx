@@ -45,7 +45,7 @@ const AuthPage = ({ onLogin }) => {
     <div className="min-h-screen flex items-center justify-center p-4" data-testid="auth-page">
       <Card className="w-full max-w-md glass border-0 shadow-2xl">
         <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-12 h-12 bg-purple-600 dark:bg-purple-500 rounded-full flex items-center justify-center mb-4">
             <Wallet className="w-6 h-6 text-white" />
           </div>
           <CardTitle className="text-3xl font-bold">
@@ -103,7 +103,7 @@ const AuthPage = ({ onLogin }) => {
                 <select
                   id="currency"
                   data-testid="currency-select"
-                  className="w-full px-3 py-2 border rounded-md"
+                  className="w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
                   value={formData.currency}
                   onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
                 >
@@ -120,7 +120,7 @@ const AuthPage = ({ onLogin }) => {
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+              className="w-full bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white"
               disabled={loading}
               data-testid="auth-submit-button"
             >
@@ -132,7 +132,7 @@ const AuthPage = ({ onLogin }) => {
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
               data-testid="toggle-auth-mode"
             >
               {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}

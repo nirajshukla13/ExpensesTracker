@@ -32,6 +32,7 @@ const Layout = ({ children, user, onLogout }) => {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle('dark');
+    document.body.classList.toggle('dark');
   };
 
   return (
@@ -55,10 +56,10 @@ const Layout = ({ children, user, onLogout }) => {
         <div className="p-6 flex flex-col h-full">
           {/* Logo */}
           <div className="mb-8" data-testid="app-logo">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold text-purple-600 dark:text-purple-400">
               ExpenseTracker
             </h1>
-            <p className="text-sm text-gray-600 mt-1">Hello, {user?.username}!</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Hello, {user?.username}!</p>
           </div>
 
           {/* Navigation */}
@@ -74,8 +75,8 @@ const Layout = ({ children, user, onLogout }) => {
                   data-testid={`nav-link-${item.label.toLowerCase()}`}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
-                      : 'text-gray-700 hover:bg-white/50'
+                      ? 'bg-purple-600 dark:bg-purple-500 text-white shadow-lg'
+                      : 'text-gray-700 dark:text-gray-200 hover:bg-white/50 dark:hover:bg-gray-700/50'
                   }`}
                 >
                   <Icon className="w-5 h-5" />

@@ -1,11 +1,17 @@
 {
-  "name": "expense",
+  "name": "expense-tracker",
   "version": "1.0.0",
   "private": true,
+  "description": "Full-stack expense tracking application with React frontend and FastAPI backend",
   "scripts": {
-    "postinstall": "cd frontend && npm install --legacy-peer-deps",
+    "install:frontend": "cd frontend && npm install --legacy-peer-deps",
+    "install:backend": "cd backend && powershell -ExecutionPolicy Bypass -File .\\scripts\\create_venv.ps1",
     "start": "cd frontend && npm start",
-    "start:backend": "python -m pip install -r backend/requirements.txt && python backend/server.py",
-    "setup": "npm run postinstall"
-  }
+    "dev": "cd frontend && npm run dev",
+    "start:backend": "cd backend && powershell -ExecutionPolicy Bypass -File .\\scripts\\start_backend.ps1",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": ["expense-tracker", "react", "fastapi", "mongodb"],
+  "author": "",
+  "license": "MIT"
 }

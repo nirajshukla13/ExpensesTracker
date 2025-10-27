@@ -61,21 +61,21 @@ const Dashboard = ({ user }) => {
     <div className="space-y-6 animate-fade-in" data-testid="dashboard-page">
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold text-white mb-2" data-testid="dashboard-title">
+        <h1 className="text-4xl font-bold text-white dark:text-gray-100 mb-2" data-testid="dashboard-title">
           Dashboard
         </h1>
-        <p className="text-white/80">Your financial overview at a glance</p>
+        <p className="text-white/80 dark:text-gray-300">Your financial overview at a glance</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="glass border-0 stat-card" data-testid="total-expenses-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total Expenses</CardTitle>
-            <DollarSign className="w-4 h-4 text-purple-600" />
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Expenses</CardTitle>
+            <DollarSign className="w-4 h-4 text-purple-600 dark:text-purple-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900" data-testid="total-expenses-amount">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100" data-testid="total-expenses-amount">
               {user?.currency} {stats?.total_expenses?.toFixed(2) || '0.00'}
             </div>
           </CardContent>
@@ -83,11 +83,11 @@ const Dashboard = ({ user }) => {
 
         <Card className="glass border-0 stat-card" data-testid="total-transactions-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Transactions</CardTitle>
-            <TrendingUp className="w-4 h-4 text-blue-600" />
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Transactions</CardTitle>
+            <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900" data-testid="total-transactions-count">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100" data-testid="total-transactions-count">
               {stats?.total_transactions || 0}
             </div>
           </CardContent>
@@ -95,11 +95,11 @@ const Dashboard = ({ user }) => {
 
         <Card className="glass border-0 stat-card" data-testid="categories-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Categories</CardTitle>
-            <CreditCard className="w-4 h-4 text-green-600" />
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Categories</CardTitle>
+            <CreditCard className="w-4 h-4 text-green-600 dark:text-green-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {Object.keys(stats?.by_category || {}).length}
             </div>
           </CardContent>
@@ -107,11 +107,11 @@ const Dashboard = ({ user }) => {
 
         <Card className="glass border-0 stat-card" data-testid="this-month-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">This Month</CardTitle>
-            <Calendar className="w-4 h-4 text-orange-600" />
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">This Month</CardTitle>
+            <Calendar className="w-4 h-4 text-orange-600 dark:text-orange-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900" data-testid="this-month-amount">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100" data-testid="this-month-amount">
               {user?.currency} {monthlyData[monthlyData.length - 1]?.amount?.toFixed(2) || '0.00'}
             </div>
           </CardContent>

@@ -1,0 +1,112 @@
+# IDE and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Python Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environment Variables (IMPORTANT - keeps secrets safe)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*token.json*
+*credentials.json*
+
+# Testing
+/coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Build Output
+/build
+/dist
+*.egg-info/
+.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+dump.rdb
+
+# System Files
+.DS_Store
+*.pem
+Thumbs.db
+desktop.ini
+
+# Development Tools
+chainlit.md
+.chainlit
+.ipynb_checkpoints/
+.ac
+*.sublime-project
+*.sublime-workspace
+
+# Deployment
+.vercel
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+agenthub/agents/youtube/db
+
+# Archives and Large Files
+**/*.zip
+**/*.tar.gz
+**/*.tar
+**/*.tgz
+*.pack
+*.deb
+*.dylib
+
+# Cache Directories
+.cache/
+.npm/
+.eslintcache
+*.cache
+
+# Mobile Development
+android-sdk/
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Package Manager Locks (optional - uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock

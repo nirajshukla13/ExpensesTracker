@@ -29,7 +29,9 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 # JWT Config
-SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-this-in-production')
+# Normalize JWT secret: strip whitespace and surrounding quotes so .env quoting doesn't change the value
+raw_secret = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-this-in-production')
+SECRET_KEY = raw_secret.strip().strip('"').strip("'")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
@@ -165,12 +167,18 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")
         if user_id is None:
+            logger.warning("JWT decode succeeded but 'sub' claim missing")
             raise HTTPException(status_code=401, detail="Invalid authentication credentials")
         return user_id
-    except jwt.ExpiredSignatureError:
+    except jwt.ExpiredSignatureError as e:
+        logger.warning(f"JWT token expired: {e}")
         raise HTTPException(status_code=401, detail="Token has expired")
-    except jwt.PyJWTError:
+    except jwt.InvalidSignatureError as e:
+        logger.warning(f"JWT signature invalid (check SECRET_KEY): {e}")
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+    except jwt.PyJWTError as e:
         # PyJWT's base exception is PyJWTError (older code used JWTError)
+        logger.warning(f"JWT decode error: {type(e).__name__}: {e}")
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
 
 # Auth Routes

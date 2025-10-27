@@ -63,8 +63,8 @@ const ReportsPage = ({ user }) => {
   return (
     <div className="space-y-6" data-testid="reports-page">
       <div>
-        <h1 className="text-4xl font-bold text-white" data-testid="reports-title">Reports & Export</h1>
-        <p className="text-white/80">Generate and download financial reports</p>
+        <h1 className="text-4xl font-bold text-white dark:text-gray-100" data-testid="reports-title">Reports & Export</h1>
+        <p className="text-white/80 dark:text-gray-300">Generate and download financial reports</p>
       </div>
 
       {/* Export Options */}
@@ -76,26 +76,26 @@ const ReportsPage = ({ user }) => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Button
               onClick={() => handleExport('csv')}
-              className="h-24 flex flex-col items-center justify-center gap-2 bg-white text-gray-900 hover:bg-gray-50"
+              className="h-24 flex flex-col items-center justify-center gap-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600"
               data-testid="export-csv-button"
             >
-              <FileText className="w-8 h-8 text-green-600" />
+              <FileText className="w-8 h-8 text-green-600 dark:text-green-400" />
               <span className="font-semibold">Export to CSV</span>
             </Button>
             <Button
               onClick={() => handleExport('excel')}
-              className="h-24 flex flex-col items-center justify-center gap-2 bg-white text-gray-900 hover:bg-gray-50"
+              className="h-24 flex flex-col items-center justify-center gap-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600"
               data-testid="export-excel-button"
             >
-              <FileSpreadsheet className="w-8 h-8 text-blue-600" />
+              <FileSpreadsheet className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               <span className="font-semibold">Export to Excel</span>
             </Button>
             <Button
               onClick={() => handleExport('pdf')}
-              className="h-24 flex flex-col items-center justify-center gap-2 bg-white text-gray-900 hover:bg-gray-50"
+              className="h-24 flex flex-col items-center justify-center gap-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600"
               data-testid="export-pdf-button"
             >
-              <File className="w-8 h-8 text-red-600" />
+              <File className="w-8 h-8 text-red-600 dark:text-red-400" />
               <span className="font-semibold">Export to PDF</span>
             </Button>
           </div>
@@ -106,10 +106,10 @@ const ReportsPage = ({ user }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="glass border-0" data-testid="report-total-expenses">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total Expenses</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Expenses</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {user?.currency} {stats?.total_expenses?.toFixed(2) || '0.00'}
             </div>
           </CardContent>
@@ -117,19 +117,19 @@ const ReportsPage = ({ user }) => {
 
         <Card className="glass border-0" data-testid="report-total-transactions">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total Transactions</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Transactions</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats?.total_transactions || 0}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.total_transactions || 0}</div>
           </CardContent>
         </Card>
 
         <Card className="glass border-0" data-testid="report-categories-count">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Active Categories</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Active Categories</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {Object.keys(stats?.by_category || {}).length}
             </div>
           </CardContent>
@@ -137,10 +137,10 @@ const ReportsPage = ({ user }) => {
 
         <Card className="glass border-0" data-testid="report-payment-methods">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Payment Methods</CardTitle>
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-300">Payment Methods</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {Object.keys(stats?.by_payment_method || {}).length}
             </div>
           </CardContent>
@@ -161,14 +161,14 @@ const ReportsPage = ({ user }) => {
                 return (
                   <div key={category} className="space-y-1" data-testid={`category-breakdown-${category}`}>
                     <div className="flex justify-between text-sm">
-                      <span className="font-medium">{category}</span>
-                      <span className="text-gray-600">
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{category}</span>
+                      <span className="text-gray-600 dark:text-gray-300">
                         {user?.currency} {amount.toFixed(2)} ({percentage}%)
                       </span>
                     </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-purple-600 to-blue-600"
+                        className="h-full bg-purple-600 dark:bg-purple-500"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -193,14 +193,14 @@ const ReportsPage = ({ user }) => {
                 return (
                   <div key={method} className="space-y-1" data-testid={`payment-breakdown-${method}`}>
                     <div className="flex justify-between text-sm">
-                      <span className="font-medium">{method}</span>
-                      <span className="text-gray-600">
+                      <span className="font-medium text-gray-900 dark:text-gray-100">{method}</span>
+                      <span className="text-gray-600 dark:text-gray-300">
                         {user?.currency} {amount.toFixed(2)} ({percentage}%)
                       </span>
                     </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-blue-600 to-purple-600"
+                        className="h-full bg-blue-600 dark:bg-blue-500"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
