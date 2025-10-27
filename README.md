@@ -2,7 +2,7 @@
 
 Full-stack expense tracking application with React frontend and FastAPI backend.
 
-## 🚀 Quick Setup (For New Users)
+## 🚀 Quick Setup 
 
 ### Step 1: Install Dependencies
 
