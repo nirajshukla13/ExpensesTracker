@@ -1,0 +1,11 @@
+{
+  "name": "expense",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd frontend && npm install --legacy-peer-deps",
+    "start": "cd frontend && npm start",
+    "start:backend": "python -m pip install -r backend/requirements.txt && python backend/server.py",
+    "setup": "npm run postinstall"
+  }
+}

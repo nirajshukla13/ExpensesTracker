@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -169,7 +169,8 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         return user_id
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token has expired")
-    except jwt.JWTError:
+    except jwt.PyJWTError:
+        # PyJWT's base exception is PyJWTError (older code used JWTError)
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
 
 # Auth Routes
@@ -545,10 +546,73 @@ async def export_pdf(user_id: str = Depends(get_current_user)):
 # Include router
 app.include_router(api_router)
 
+# Dev-only: token endpoint (enabled via DEV_TOKEN_ENDPOINT env var)
+if os.environ.get("DEV_TOKEN_ENDPOINT", "false").lower() in ("1", "true", "yes"):
+    @api_router.get("/dev/token")
+    async def dev_token(request: Request):
+        # Only allow localhost requests
+        client_host = request.client.host if request.client else None
+        if client_host not in ("127.0.0.1", "::1", "localhost"):
+            raise HTTPException(status_code=403, detail="Forbidden")
+
+        # create or find dev user
+        email = os.environ.get("DEV_USER_EMAIL", "dev@example.com")
+        username = os.environ.get("DEV_USER_NAME", "devuser")
+        password = os.environ.get("DEV_USER_PASSWORD", "password123")
+
+        existing = await db.users.find_one({"email": email})
+        if existing:
+            user_id = existing["id"]
+        else:
+            user_id = str(uuid.uuid4())
+            user_doc = {
+                "id": user_id,
+                "username": username,
+                "email": email,
+                "password_hash": get_password_hash(password),
+                "currency": "USD",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            await db.users.insert_one(user_doc)
+            # insert default categories for dev user
+            default_categories = [
+                {"name": "Food", "icon": "Utensils", "color": "#FF6B6B"},
+                {"name": "Transport", "icon": "Car", "color": "#4ECDC4"},
+                {"name": "Bills", "icon": "FileText", "color": "#45B7D1"},
+                {"name": "Shopping", "icon": "ShoppingBag", "color": "#FFA07A"},
+            ]
+            for cat in default_categories:
+                cat_doc = {
+                    "id": str(uuid.uuid4()),
+                    "user_id": user_id,
+                    "name": cat["name"],
+                    "icon": cat["icon"],
+                    "color": cat["color"],
+                    "is_custom": False,
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                }
+                await db.categories.insert_one(cat_doc)
+
+        token = create_access_token({"sub": user_id})
+        return {"access_token": token}
+
+# Parse CORS origins from env and normalize values (trim whitespace and quotes)
+cors_env = os.environ.get('CORS_ORIGINS', '*')
+# Split on comma, strip spaces and surrounding quotes, and ignore empty entries
+cors_origins = [o.strip().strip('"').strip("'") for o in cors_env.split(',') if o.strip()]
+# If the env was set to a single '*' (or empty after parsing) use wildcard
+if len(cors_origins) == 0:
+    cors_origins = ['*']
+if len(cors_origins) == 1 and cors_origins[0] == '*':
+    # Allow all origins
+    allow_origins_setting = ['*']
+else:
+    allow_origins_setting = cors_origins
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=allow_origins_setting,
     allow_methods=["*"],
     allow_headers=["*"],
 )
